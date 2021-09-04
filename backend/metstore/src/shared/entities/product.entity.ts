@@ -5,6 +5,7 @@ export class Product {
   name: string;
   price: number;
   category: Category;
+  quantity: number;
 
   constructor(
     _name: string,

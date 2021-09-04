@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -41,7 +40,6 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() updatedProduct: CreateProductDto,
   ) {
-    console.log(updatedProduct.name);
     return this.productsService.updateProduct(+id, updatedProduct);
   }
 
