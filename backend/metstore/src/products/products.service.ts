@@ -1,9 +1,9 @@
-import {Injectable, NotFoundException, Scope} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from 'src/shared/entities/product.entity';
 import { Category } from 'src/shared/enums/category.enum';
 import { CreateProductDto } from './dtos/create-product.dto';
 
-@Injectable({scope: Scope.DEFAULT})
+@Injectable()
 export class ProductsService {
   products: Product[] = [
     new Product('AMD Ryzen 5 3600', 1700, Category.CPU, 1),
@@ -18,8 +18,8 @@ export class ProductsService {
     new Product('Keyboard Logitech MK235', 129, Category.KEYBOARD, 9),
     new Product('Keyboard Multilaser Slim', 30, Category.KEYBOARD, 16),
     new Product('Keyboard HyperX Mars RGB', 350, Category.KEYBOARD, 17),
-    new Product('DDR4 RAM Crucial Ballistix 8GB DDR4', 310, Category.MEMORY, 10,),
-    new Product('DDR4 RAM Kingston Fury Beast 8GB DDR4', 290, Category.MEMORY, 18,),
+    new Product('DDR4 RAM Crucial Ballistix 8GB DDR4', 310, Category.MEMORY, 10),
+    new Product('DDR4 RAM Kingston Fury Beast 8GB DDR4', 290, Category.MEMORY, 18),
     new Product('DDR4 RAM XPG Gammix D30 16GB', 500, Category.MEMORY, 19),
     new Product('AOC Hero G/24 144hz', 1100, Category.MONITOR, 11),
     new Product('LG LED 21.5" 22MK400H', 840, Category.MONITOR, 20),

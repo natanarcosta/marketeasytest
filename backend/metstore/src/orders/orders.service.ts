@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException, Scope } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 import { Order } from 'src/shared/entities/order.entity';
 import { Product } from 'src/shared/entities/product.entity';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 
-@Injectable({scope: Scope.DEFAULT})
+@Injectable()
 export class OrdersService {
   constructor(private productsService: ProductsService) {}
   orders: Order[] = [];

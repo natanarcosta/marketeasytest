@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable, Scope } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrdersService } from 'src/orders/orders.service';
 import { ProductsService } from 'src/products/products.service';
 import { ExchangeProductDto } from './dtos/exchange-product.dto';
 
-@Injectable({ scope: Scope.DEFAULT })
+@Injectable()
 export class ExchangesService {
   constructor(
     private ordersService: OrdersService,
