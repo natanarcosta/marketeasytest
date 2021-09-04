@@ -14,6 +14,7 @@ import { OrdersService } from './orders.service';
 @Controller('orders')
 export class OrdersController {
   constructor(private orderService: OrdersService) {}
+
   @Get()
   getAllOrders() {
     return this.orderService.getAllOrders();

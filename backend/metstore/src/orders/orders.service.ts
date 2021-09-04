@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 import { Order } from 'src/shared/entities/order.entity';
 import { Product } from 'src/shared/entities/product.entity';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 
-@Injectable()
+@Injectable({scope: Scope.DEFAULT})
 export class OrdersService {
   constructor(private productsService: ProductsService) {}
   orders: Order[] = [];
@@ -24,6 +24,10 @@ export class OrdersService {
     });
     let order: Order = new Order(orderId, orderProducts);
     order.totalPrice = this.getTotalPrice(order);
+    return this.orders.push(order);
+  }
+
+  addOrder(order: Order) {
     return this.orders.push(order);
   }
 

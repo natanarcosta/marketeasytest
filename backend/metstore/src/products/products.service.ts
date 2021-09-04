@@ -1,9 +1,9 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable, NotFoundException, Scope} from '@nestjs/common';
 import { Product } from 'src/shared/entities/product.entity';
 import { Category } from 'src/shared/enums/category.enum';
 import { CreateProductDto } from './dtos/create-product.dto';
 
-@Injectable()
+@Injectable({scope: Scope.DEFAULT})
 export class ProductsService {
   products: Product[] = [
     new Product('AMD Ryzen 5 3600', 1700, Category.CPU, 1),
