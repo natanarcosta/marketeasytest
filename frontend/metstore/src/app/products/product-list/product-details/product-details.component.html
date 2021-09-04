@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container sticky-top">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Nome:</label>
@@ -42,8 +42,12 @@
     </div>
     <div class="btn-group mt-3">
       <button class="btn btn-success me-1" type="submit">Confirmar</button>
-      <button class="btn btn-secondary me-1" type="button">Cancelar</button>
-      <button class="btn btn-danger" type="button">Deletar</button>
+      <button class="btn btn-secondary me-1" type="button" (click)="onCancel()">
+        Cancelar
+      </button>
+      <button class="btn btn-danger" type="button" (click)="onDeleteProd()" [disabled]="!editMode">
+        Deletar
+      </button>
     </div>
   </form>
 </div>

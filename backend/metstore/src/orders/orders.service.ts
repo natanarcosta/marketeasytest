@@ -11,12 +11,12 @@ export class OrdersService {
 
   createOrder(newOrder: CreateOrderDTO) {
     const orderId = this.orders.length + 1;
-    //Creates an array of product IDs associated with this order
+    //Cria uma array de IDs de produtos associados com este pedido
     let productsIds: number[] = [];
     newOrder.products.forEach((product) => productsIds.push(product.productId));
-    //Get all products with the IDs provided
+    //Cria uma array de produtos com os IDs passados anteriormente
     let orderProducts: Product[] = this.getProducts(productsIds);
-    //Update each product's quantity according to the newOrder parameters
+    //Atualiza a quantidade de cada produto
     orderProducts.forEach((product) => {
       product.quantity = newOrder.products.find(
         (orderProd) => orderProd.productId === product.id,
@@ -66,7 +66,9 @@ export class OrdersService {
 
   getProducts(ids: number[]): Product[] {
     let products: Product[] = [];
-    ids.forEach((productId) => products.push(this.productsService.getProductById(productId)));
+    ids.forEach((productId) =>
+      products.push(this.productsService.getProductById(productId)),
+    );
     return products;
   }
 

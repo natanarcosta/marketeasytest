@@ -13,12 +13,14 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private prodService: ProductsService) {}
 
   ngOnInit(): void {
+    //Carrega a lista de categorias para o dropdown no cabeçalho
     this.categories = this.prodService.getCategories();
   }
 
   onToCart() {
     this.router.navigate(['cart']);
   }
+
   onSearch(searched: HTMLInputElement) {
     this.router.navigate(['search'], {
       queryParams: { product: searched.value },

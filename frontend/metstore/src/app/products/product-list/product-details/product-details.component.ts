@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Category } from 'src/app/shared/enums/category.enum';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductsService } from '../../products.service';
@@ -12,10 +11,10 @@ import { ProductsService } from '../../products.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ProductDetailsComponent implements OnInit {
   id!: number;
+  //editMode determina se o formulário será carregado em branco (novo produto) ou com dados do produto à ser editado
   editMode = false;
-  subscription!: Subscription;
   product!: Product;
   categories: Category[] = [];
 
@@ -27,11 +26,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private prodService: ProductsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.categories = this.prodService.getCategories();
+    //Se há o parametro ID na rota, muda o editMode para true e carrega o formulario com os dados do produto a ser editado.
     this.route.paramMap.subscribe((params: Params) => {
       this.id = +params.params.id;
       this.editMode = params.params.id != null;
@@ -39,20 +40,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    /*     this.subscription.unsubscribe();
-     */
-  }
-
   initForm() {
     if (this.editMode) {
       this.prodService
         .getProductById(this.id)
-        .subscribe((prod) => this.productForm.patchValue(prod));
+        .subscribe((prod) => this.productForm.patchValue(prod)); //Carrega os dados do produto no formulario para edição.
     }
   }
 
   onSubmit() {
+    //Se o editMode estiver true, envia uma solicitação para atualizar um produto existente
     if (this.editMode) {
       const updatedProduct = new Product(
         this.productForm.value['name'],
@@ -60,21 +57,27 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.productForm.value['category']
       );
       updatedProduct.id = this.id;
-      return this.prodService
-        .updateProduct(updatedProduct)
-        .subscribe((res) => console.log(res));
+      this.prodService.updateProduct(updatedProduct);
+      this.editMode = false;
+      return this.productForm.reset();
     } else {
+      //Se o editMode estiver false, envia uma solicitação para criar um novo produto
       const newProduct = new Product(
         this.productForm.value['name'],
         this.productForm.value['price'],
         this.productForm.value['category']
       );
-      return this.prodService.createProduct(newProduct).subscribe(
-        (res) => console.log(res),
-        (error) => console.log(error.error.message)
-      );
+      this.prodService.createProduct(newProduct);
+      return this.productForm.reset();
     }
   }
 
-  getProduct(id: number) {}
+  onCancel() {
+    this.productForm.reset();
+    this.router.navigate(['admin']);
+  }
+
+  onDeleteProd() {
+    return this.prodService.deleteProduct(this.id);
+  }
 }
