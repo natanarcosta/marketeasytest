@@ -10,19 +10,19 @@ export class ExchangesService {
     private productsService: ProductsService,
   ) {}
 
-  exchangeProduct(id: number, exchange: ExchangeProductDto) {
-    let order = this.ordersService.getOrderById(id);
+  exchangeProduct(orderId: number, exchangeRequest: ExchangeProductDto) {
+    let order = this.ordersService.getOrderById(orderId);
     const oldProduct = this.productsService.getProductById(
-      exchange.oldProductId,
+      exchangeRequest.oldProductId,
     );
     if (!order.productList.includes(oldProduct)) {
-      throw new BadRequestException('Invalid product id.');
+      throw new BadRequestException('Invalid product id!');
     }
     const oldProductIndex = order.productList.findIndex(
       (product) => product.id === oldProduct.id,
     );
     const newProduct = this.productsService.getProductById(
-      exchange.newProductId,
+      exchangeRequest.newProductId,
     );
     newProduct.quantity = oldProduct.quantity;
     if (oldProduct.category != newProduct.category) {
@@ -32,7 +32,7 @@ export class ExchangesService {
     }
     order.productList[oldProductIndex] = newProduct;
     order.totalPrice = this.ordersService.getTotalPrice(order);
-    this.ordersService.deleteOrder(id);
+    this.ordersService.deleteOrder(orderId);
     return this.ordersService.addOrder(order);
   }
 }

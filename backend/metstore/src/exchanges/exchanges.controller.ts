@@ -9,8 +9,7 @@ export class ExchangesController {
   @Put('/:id')
   exchangeProduct(
     @Param('id') orderId: string,
-    @Body() exchange: ExchangeProductDto,
-  ) {
-    return this.exchangesService.exchangeProduct(+orderId, exchange);
+    @Body() exchangeRequest: ExchangeProductDto,) {
+    return this.exchangesService.exchangeProduct(+orderId, exchangeRequest);
   }
 }

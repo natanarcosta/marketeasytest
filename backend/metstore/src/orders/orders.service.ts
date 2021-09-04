@@ -66,15 +66,15 @@ export class OrdersService {
 
   getProducts(ids: number[]): Product[] {
     let products: Product[] = [];
-    ids.forEach((id) => products.push(this.productsService.getProductById(id)));
+    ids.forEach((productId) => products.push(this.productsService.getProductById(productId)));
     return products;
   }
 
   getTotalPrice(order: Order) {
-    let total = 0;
+    let totalPrice = 0;
     order.productList.forEach((product) => {
-      total += product.price * product.quantity;
+      totalPrice += product.price * product.quantity;
     });
-    return total;
+    return totalPrice;
   }
 }

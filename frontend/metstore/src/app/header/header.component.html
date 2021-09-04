@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">MarketEasy Test Store</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="products" routerLinkActive="active">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="products" routerLinkActive="active">Meus Pedidos</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Categorias
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li *ngFor="let category of categories">
+              <a class="dropdown-item">{{ category | titlecase }}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="manage" routerLink="admin" routerLinkActive="active">Administração</a>
+        </li>
+      </ul>
+      <form class="d-flex me-5">
+        <button
+          class="btn btn-outline-success"
+          type="button"
+          (click)="onToCart()"
+        >
+          <img src="../../assets/icons/cart-fill.svg" />
+          Cart
+          <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container mt-2">
+  <form class="d-flex">
+    <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search" #searched>
+    <button class="btn btn-outline-success" (click)="onSearch(searched)">Pesquisa</button>
+  </form>
+</div>

@@ -15,9 +15,9 @@ export class ProductsService {
     new Product('Headset Redragon Scylla', 110, Category.HEADSET, 7),
     new Product('Headset HyperX Cloud Stinger', 340, Category.HEADSET, 8),
     new Product('Headset Razer Kraken X Lite', 280, Category.HEADSET, 15),
-    new Product('Keyboard Logitech MK235', 129, Category.KEYBOARD, 9),
-    new Product('Keyboard Multilaser Slim', 30, Category.KEYBOARD, 16),
-    new Product('Keyboard HyperX Mars RGB', 350, Category.KEYBOARD, 17),
+    new Product('Teclado Logitech MK235', 129, Category.KEYBOARD, 9),
+    new Product('Teclado Multilaser Slim', 30, Category.KEYBOARD, 16),
+    new Product('Teclado HyperX Mars RGB', 350, Category.KEYBOARD, 17),
     new Product('DDR4 RAM Crucial Ballistix 8GB DDR4', 310, Category.MEMORY, 10),
     new Product('DDR4 RAM Kingston Fury Beast 8GB DDR4', 290, Category.MEMORY, 18),
     new Product('DDR4 RAM XPG Gammix D30 16GB', 500, Category.MEMORY, 19),
@@ -30,7 +30,7 @@ export class ProductsService {
     new Product('Kingston A400 240GB', 269, Category.SSD, 14),
     new Product('XPG S41 TUF 256GB', 310, Category.SSD, 24),
     new Product('Crucial BX500 420GB SATA', 390, Category.SSD, 25),
-  ];
+  ]; 
 
   createProduct(product: CreateProductDto) {
     product.id = this.products.length + 1;

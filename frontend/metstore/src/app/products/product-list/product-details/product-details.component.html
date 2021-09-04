@@ -1,0 +1,49 @@
+<div class="container">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nome:</label>
+      <input type="text" class="form-control" formControlName="name" />
+      <span
+        class="help-block"
+        *ngIf="
+          productForm.get('name')?.errors?.required &&
+          productForm.get('name')?.touched
+        "
+        >Este campo precisa ser preenchido!</span
+      >
+    </div>
+    <div class="form-group">
+      <label for="price">Preço:</label>
+      <input type="number" class="form-control" formControlName="price" />
+      <span
+        class="help-block"
+        *ngIf="
+          productForm.get('price')?.errors?.required &&
+          productForm.get('price')?.touched
+        "
+        >Este campo precisa ser preenchido!</span
+      >
+    </div>
+    <div class="form-group">
+      <label for="category">Categoria:</label>
+      <select name="category" class="form-select" formControlName="category">
+        <option *ngFor="let _category of categories" value="{{ _category }}">
+          {{ _category }}
+        </option>
+      </select>
+      <span
+        class="help-block"
+        *ngIf="
+          productForm.get('category')?.errors?.required &&
+          productForm.get('category')?.touched
+        "
+        >Selecione uma categoria!</span
+      >
+    </div>
+    <div class="btn-group mt-3">
+      <button class="btn btn-success me-1" type="submit">Confirmar</button>
+      <button class="btn btn-secondary me-1" type="button">Cancelar</button>
+      <button class="btn btn-danger" type="button">Deletar</button>
+    </div>
+  </form>
+</div>

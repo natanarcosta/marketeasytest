@@ -2,8 +2,8 @@ import { IsNumber } from 'class-validator';
 
 export class ExchangeProductDto {
   @IsNumber()
-  oldProductId;
+  oldProductId: number;
 
   @IsNumber()
-  newProductId;
+  newProductId: number;
 }
