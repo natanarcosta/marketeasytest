@@ -19,8 +19,7 @@ export class OrdersService {
     //Atualiza a quantidade de cada produto
     orderProducts.forEach((product) => {
       product.quantity = newOrder.products.find(
-        (orderProd) => orderProd.productId === product.id,
-      ).quantity;
+        (orderProd) => orderProd.productId === product.id).quantity
     });
     let order: Order = new Order(orderId, orderProducts);
     order.totalPrice = this.getTotalPrice(order);
@@ -44,6 +43,7 @@ export class OrdersService {
   }
 
   updateOrder(id: number, updatedOrder: Order) {
+    //Atualiza o pedido usando o index, que já retorna erro caso o id passado seja inválido
     const index = this.getOrderIndex(id);
     this.orders[index].id = id;
     this.orders[index].productList = updatedOrder.productList;
@@ -52,6 +52,7 @@ export class OrdersService {
   }
 
   deleteOrder(id: number) {
+    //Deleta um pedido usando o Index, que já retorna erro caso o id seja inválido.
     const index = this.getOrderIndex(id);
     return this.orders.splice(index, 1);
   }
@@ -65,6 +66,7 @@ export class OrdersService {
   }
 
   getProducts(ids: number[]): Product[] {
+    //Retorna uma array de produtos usando uma array de IDs. Usado para criar um novo pedido
     let products: Product[] = [];
     ids.forEach((productId) =>
       products.push(this.productsService.getProductById(productId)),
@@ -73,6 +75,7 @@ export class OrdersService {
   }
 
   getTotalPrice(order: Order) {
+    //Calcula o preço total do pedido.
     let totalPrice = 0;
     order.productList.forEach((product) => {
       totalPrice += product.price * product.quantity;

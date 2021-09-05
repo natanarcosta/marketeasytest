@@ -33,6 +33,7 @@ export class ProductsService {
   ]; 
 
   createProduct(product: CreateProductDto) {
+    //Cria novo produto. o ID é gerado baseado no tamanho da array de produtos atual.
     product.id = this.products.length + 1;
     const newProduct = new Product(
       product.name,
@@ -44,10 +45,12 @@ export class ProductsService {
   }
 
   getAllProducts() {
+    //Retorna todos produtos
     return this.products;
   }
 
   getProductById(id: number) {
+    //Retorna produto com ID informado
     const product = this.products.find((product) => product.id == id);
     if (!product) {
       throw new NotFoundException('Produto não encontrado!');
@@ -56,6 +59,7 @@ export class ProductsService {
   }
 
   getProductsByCategory(category: Category) {
+    //Retorna todos produtos da categoria informada
     const products = this.products.filter(
       (product) => product.category === category,
     );
@@ -66,11 +70,13 @@ export class ProductsService {
   }
 
   deleteProduct(id: number) {
+    //Deleta produto usando o index, que já verifica se o id informado é valido.
     const index = this.getProductIndex(id);
     return this.products.splice(index, 1);
   }
 
   updateProduct(id: number, updatedProduct: CreateProductDto) {
+    //Atualiza produto usando o index, que verifica se o id não é inválido.
     const index = this.getProductIndex(id);
     this.products[index].category = updatedProduct.category;
     this.products[index].name = updatedProduct.name;
@@ -79,6 +85,7 @@ export class ProductsService {
   }
 
   getProductIndex(id: number) {
+    //Retorna a posição do produto na array e lida com id inválido
     const index = this.products.findIndex((product) => product.id === id);
     if (index < 0) {
       throw new NotFoundException('Produto não encontrado!');
