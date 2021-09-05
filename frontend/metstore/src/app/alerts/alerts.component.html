@@ -1,0 +1,10 @@
+<ngb-toast
+  *ngFor="let toast of alertsService.toasts"
+  [header]="toast.header"
+  [animation]="true"
+  [ngClass]="{'bg-danger': alertsService.isDanger}"
+  [autohide]="true"
+  [delay]="toast.delay || 3500"
+  (hide)="alertsService.remove(toast)"
+  >{{ toast.body }}</ngb-toast
+>

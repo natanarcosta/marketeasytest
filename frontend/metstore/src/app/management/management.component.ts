@@ -9,7 +9,7 @@ import { Product } from '../shared/models/product.model';
   templateUrl: './management.component.html',
   styleUrls: ['./management.component.css'],
 })
-export class ManagementComponent implements OnInit {
+export class ManagementComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   subscription!: Subscription;
   constructor(private prodService: ProductsService, private router: Router) {}
@@ -22,5 +22,8 @@ export class ManagementComponent implements OnInit {
         this.products = res;
       }
     );
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

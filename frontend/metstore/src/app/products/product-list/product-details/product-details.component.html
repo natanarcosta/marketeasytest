@@ -1,4 +1,4 @@
-<div class="container sticky-top">
+<div class="container sticky-top shadow mt-1">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Nome:</label>
@@ -40,8 +40,8 @@
         >Selecione uma categoria!</span
       >
     </div>
-    <div class="btn-group mt-3">
-      <button class="btn btn-success me-1" type="submit">Confirmar</button>
+    <div class="btn-group mt-3 mb-2">
+      <button class="btn btn-success me-1" type="submit">{{editMode ? 'Salvar' : 'Enviar'}}</button>
       <button class="btn btn-secondary me-1" type="button" (click)="onCancel()">
         Cancelar
       </button>

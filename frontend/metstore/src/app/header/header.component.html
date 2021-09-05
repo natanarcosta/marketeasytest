@@ -40,7 +40,7 @@
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li *ngFor="let category of categories" style="cursor: pointer;">
+            <li *ngFor="let category of categories" style="cursor: pointer">
               <a class="dropdown-item">{{ category | titlecase }}</a>
             </li>
           </ul>
@@ -63,10 +63,12 @@
         >
           <img src="../../assets/icons/cart-fill.svg" />
           Cart
-          <span class="badge bg-dark text-white ms-1 rounded-pill">{{prodsInCartCount}}</span>
+          <span class="badge bg-dark text-white ms-1 rounded-pill">{{
+            prodsInCartCount
+          }}</span>
         </button>
       </form>
     </div>
   </div>
 </nav>
-
+<app-alerts></app-alerts>

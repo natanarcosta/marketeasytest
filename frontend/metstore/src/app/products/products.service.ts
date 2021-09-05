@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AlertsService } from '../alerts/alerts.service';
 import { Category } from '../shared/enums/category.enum';
 import { Product } from '../shared/models/product.model';
 const url = environment.productsUrl;
@@ -9,7 +10,7 @@ const url = environment.productsUrl;
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alertService: AlertsService) {}
 
   productsChanged = new Subject<Product[]>();
 
@@ -38,6 +39,7 @@ export class ProductsService {
     //Cria um produto e envia uma array atualizada com os produtos disponíveis.
     return this.http.post(url, newProduct).subscribe(() => {
       this.getAllProducts().subscribe((products: Product[]) => {
+        this.alertService.show(`${newProduct.name}`, 'Produto criado com sucesso!', false);
         this.productsChanged.next(products);
       });
     });
@@ -49,6 +51,7 @@ export class ProductsService {
       .put(url + updatedProduct.id, updatedProduct)
       .subscribe(() => {
         this.getAllProducts().subscribe((products: Product[]) => {
+          this.alertService.show(`${updatedProduct.name}`, 'Produto atualizado com sucesso!', false)
           this.productsChanged.next(products);
         });
       });

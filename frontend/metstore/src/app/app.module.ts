@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagementComponent } from './management/management.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ExchangeProductComponent } from './orders/exchange-product/exchange-product.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,9 @@ import { ExchangeProductComponent } from './orders/exchange-product/exchange-pro
     ManagementComponent,
     OrdersComponent,
     ExchangeProductComponent,
+    AlertsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })

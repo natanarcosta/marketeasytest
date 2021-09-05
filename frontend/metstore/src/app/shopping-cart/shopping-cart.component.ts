@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertsService } from '../alerts/alerts.service';
 import { OrdersService } from '../orders/orders.service';
 import { Order } from '../shared/models/order.model';
 import { Product } from '../shared/models/product.model';
@@ -18,7 +19,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private orderService: OrdersService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertsService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +32,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     );
     this.productsInCart = this.cartService.productsInCart;
     this.grandTotal = this.cartService.getCartTotalPrice();
-    console.log(this.grandTotal);
   }
 
   ngOnDestroy() {
@@ -38,7 +39,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   onClearCart() {
-    this.cartService.clearCart();
+    this.cartService.clearCart(true);
   }
 
   onRemoveFromCart(id: number) {
@@ -48,11 +49,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   onFinishOrder() {
     let order = new Order();
     order.products = [];
+    //Adiciona o ID e a quantidade de cada produto ao objeto order
     this.productsInCart.forEach((prod: Product) => {
       order.products.push({ productId: prod.id, quantity: prod.quantity });
     });
+    //Cria o pedido e redireciona para a página de pedidos
     this.orderService.createOrder(order).subscribe(() => {
-      this.cartService.clearCart();
+      this.cartService.clearCart(false);
+      this.alertService.show('', `Pedido criado com sucesso!`, false);
       this.router.navigate(['orders']);
     });
   }

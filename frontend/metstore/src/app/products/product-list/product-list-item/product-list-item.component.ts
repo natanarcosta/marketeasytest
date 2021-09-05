@@ -5,17 +5,15 @@ import { CartService } from 'src/app/shopping-cart/cart.service';
 @Component({
   selector: 'app-product-list-item',
   templateUrl: './product-list-item.component.html',
-  styleUrls: ['./product-list-item.component.css']
+  styleUrls: ['./product-list-item.component.css'],
 })
 export class ProductListItemComponent implements OnInit {
   @Input() product!: Product;
-  constructor(private cartService:CartService) { }
+  constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  sendToCart(product: Product){
+  sendToCart(product: Product) {
     this.cartService.addProduct(product);
   }
-
 }

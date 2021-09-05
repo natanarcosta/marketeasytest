@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductsService } from '../products/products.service';
@@ -10,7 +10,7 @@ import { CartService } from '../shopping-cart/cart.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   prodsInCartCount = 0;
   subscription = new Subscription();
@@ -28,6 +28,9 @@ export class HeaderComponent implements OnInit {
     this.subscription = this.cartService.cartChanged.subscribe(() => {
       this.prodsInCartCount = this.cartService.getProdsInCartCount();
     });
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
   onToCart() {

@@ -27,6 +27,10 @@ export class ExchangeProductComponent implements OnInit, OnDestroy {
     this.subscription = this.route.queryParamMap.subscribe((params: Params) => {
       const id = +params.params.id;
       this.orderId = +params.params.orderId;
+      //Se algum dos parametros for inválido, no caso de tentativa de acessar a rota manualmente, navega de volta para os pedidos
+      if (!id || !this.orderId) {
+        this.router.navigate(['orders']);
+      }
       this.prodService.getProductById(id).subscribe((prod: Product) => {
         this.oldProduct = prod;
         this.prodService
@@ -41,7 +45,11 @@ export class ExchangeProductComponent implements OnInit, OnDestroy {
   }
 
   onExchange(newProdId: number) {
-    this.exchangeService.exchangeProducts(this.oldProduct.id, newProdId, this.orderId);
-    this.router.navigate(['orders'])
+    this.exchangeService.exchangeProducts(
+      this.oldProduct.id,
+      newProdId,
+      this.orderId
+    );
+    this.router.navigate(['orders']);
   }
 }
