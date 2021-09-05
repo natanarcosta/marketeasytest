@@ -53,14 +53,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
       cancelButtonText: 'Cancelar',
     }).then((res) => {
       if (res.isConfirmed) {
-        return this.ordersService.deleteOrder(orderId).subscribe(() => {
-          this.alertService.show(
-            '',
-            `Pedido Nº ${orderId} deletado com sucesso!`,
-            false
-          );
-          this.getOrders();
-        });
+        return this.ordersService.deleteOrder(orderId).subscribe(
+          () => {
+            this.alertService.show('',`Pedido Nº ${orderId} deletado com sucesso!`,false);
+            this.getOrders();
+          },
+          (error) => {
+            if (error.status == 404) {
+              Swal.fire({
+                title: 'Erro',
+                text: 'O ID de pedido informado é inválido!',
+              });
+            }
+          }
+        );
       }
       return;
     });
