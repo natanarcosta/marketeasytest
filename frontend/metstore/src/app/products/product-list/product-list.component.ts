@@ -22,4 +22,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  onSearch(){
+    
+  }
 }

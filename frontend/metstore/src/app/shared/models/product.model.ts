@@ -6,6 +6,7 @@ export class Product {
   price!: number;
   category!: Category;
   quantity!: number;
+  image!: string;
 
   constructor(_name: string, _price: number, _category: Category){
     this.name = _name;

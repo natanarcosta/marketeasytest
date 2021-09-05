@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagementComponent } from './management/management.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ManagementComponent } from './management/management.component';
     HeaderComponent,
     ShoppingCartComponent,
     ManagementComponent,
+    OrdersComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
   providers: [],
