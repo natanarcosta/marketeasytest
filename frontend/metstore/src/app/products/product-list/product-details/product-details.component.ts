@@ -54,7 +54,7 @@ export class ProductDetailsComponent implements OnInit {
     if (this.editMode) {
       const updatedProduct = new Product(
         this.productForm.value['name'],
-        this.productForm.value['price'],
+        +this.productForm.value['price'],
         this.productForm.value['category']
       );
       updatedProduct.id = this.id;
@@ -65,7 +65,7 @@ export class ProductDetailsComponent implements OnInit {
       //Se o editMode estiver false, envia uma solicitação para criar um novo produto
       const newProduct = new Product(
         this.productForm.value['name'],
-        this.productForm.value['price'],
+        +this.productForm.value['price'],
         this.productForm.value['category']
       );
       this.prodService.createProduct(newProduct);
