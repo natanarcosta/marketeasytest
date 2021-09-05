@@ -4,7 +4,7 @@
 
 ### Copiar o repositório para máquina local:
 Na pasta onde deseja salvar o projeto:
-```git clone natanarcosta/marketeasytest```
+```git clone https://github.com/natanarcosta/marketeasytest```
 
 ### Instalando as dependências necessárias:
 Nas pastas backend/METstore e frontend/METstore
