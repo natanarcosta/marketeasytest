@@ -8,9 +8,9 @@ export class ProductsService {
   products: Product[] = [
     new Product('AMD Ryzen 5 3600', 1429.90, Category.CPU, 1, 'https://images.kabum.com.br/produtos/fotos/102438/processador-amd-ryzen-5-3600-cache-32mb-3-6ghz-4-2ghz-max-turbo-am4-100-100000031box_processador-amd-ryzen-5-3600-cache-32mb-3-6ghz-4-2ghz-max-turbo-am4-100-100000031box_1562606710_m.jpg'),
     new Product('AMD Ryzen 7 5800X', 2649.90, Category.CPU, 2, 'https://images.kabum.com.br/produtos/fotos/129459/processador-amd-ryzen-9-5900x-cache-70mb-3-7ghz-4-8ghz-max-turbo-am4-100-100000063wof_1602600708_m.jpg'),
-    new Product('Intel Core I5-10400', 1150, Category.CPU, 3, 'https://images.kabum.com.br/produtos/fotos/112990/processador-intel-core-i5-10400-cache-12mb-2-9ghz-lga-1200-bx8070110400_1589200167_m.jpg'),
+    new Product('Intel Core I5-10400', 1150.00, Category.CPU, 3, 'https://images.kabum.com.br/produtos/fotos/112990/processador-intel-core-i5-10400-cache-12mb-2-9ghz-lga-1200-bx8070110400_1589200167_m.jpg'),
     new Product('RTX 3060', 5799.90, Category.GPU, 4, 'https://images.kabum.com.br/produtos/fotos/149999/placa-de-video-evga-geforce-rtx-3060-xc-gaming-12gb-gddr6-dualfan-metal-backplate-dlss-ray-tracing-12g-p5-3657-kr_1614167124_m.jpg'),
-    new Product('RTX 3080 Ti', 12000, Category.GPU, 5, 'https://images.kabum.com.br/produtos/fotos/164651/aorus-geforce-rtx-3080-ti-xtreme-12g_1622661313_m.jpg'),
+    new Product('RTX 3080 Ti', 12000.99, Category.GPU, 5, 'https://images.kabum.com.br/produtos/fotos/164651/aorus-geforce-rtx-3080-ti-xtreme-12g_1622661313_m.jpg'),
     new Product('RX 6900 XT', 10500, Category.GPU, 6, 'https://images.kabum.com.br/produtos/fotos/161148/placa-de-video-msi-radeon-rx-6900-xt-gaming-x-trio-16g-16-gbps-16gb-gddr6-amd-rdna-2-metal-backplate-rgb-mystic-light_1623068939_m.jpg'),
     new Product('Headset Redragon Scylla', 119.90, Category.HEADSET, 7, 'https://images.kabum.com.br/produtos/fotos/93168/93168_1507643786_index_m.jpg'),
     new Product('Headset HyperX Cloud Stinger', 329.90, Category.HEADSET, 8, 'https://images.kabum.com.br/produtos/fotos/81132/81132_index_m.jpg'),

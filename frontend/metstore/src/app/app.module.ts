@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import localPt  from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,7 +19,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { ExchangeProductComponent } from './orders/exchange-product/exchange-product.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxMaskModule } from 'ngx-mask';
+registerLocaleData(localPt);
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +36,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ExchangeProductComponent,
     AlertsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgbModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgbModule,
+    NgxMaskModule.forRoot(),
+  ],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'pt-BR'
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

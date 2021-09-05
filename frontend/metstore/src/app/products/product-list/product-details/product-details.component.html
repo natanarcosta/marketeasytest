@@ -14,7 +14,15 @@
     </div>
     <div class="form-group">
       <label for="price">Preço:</label>
-      <input type="number" class="form-control" formControlName="price" />
+      <input
+        type="text"
+        class="form-control"
+        formControlName="price"
+        mask="separator.2"
+        thousandSeparator="."
+        [decimalMarker]="','"
+        prefix="R$ "
+      />
       <span
         class="help-block"
         *ngIf="
@@ -41,11 +49,22 @@
       >
     </div>
     <div class="btn-group mt-3 mb-2">
-      <button class="btn btn-success me-1" type="submit">{{editMode ? 'Salvar' : 'Enviar'}}</button>
+      <button
+        class="btn btn-success me-1"
+        type="submit"
+        [disabled]="!productForm.valid"
+      >
+        {{ editMode ? "Salvar" : "Enviar" }}
+      </button>
       <button class="btn btn-secondary me-1" type="button" (click)="onCancel()">
         Cancelar
       </button>
-      <button class="btn btn-danger" type="button" (click)="onDeleteProd()" [disabled]="!editMode">
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="onDeleteProd()"
+        [disabled]="!editMode"
+      >
         Deletar
       </button>
     </div>
