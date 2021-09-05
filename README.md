@@ -26,7 +26,7 @@ GET: ```http://localhost:3000/products/{id}``` Retorna um produto com determinad
 
 GET ```http://localhost:3000/products/category/{categoria}``` Retorna todos produtos de uma determinada categoria.
 
-POST ```http://localhost:3000/products/``` Cria um produto. Parametros: name (string), price (number), category (enum Category). O ID é gerado automaticament baseado no length da array de produtos.
+POST ```http://localhost:3000/products/``` Cria um produto. Parametros: name (string), price (number), category (enum Category). O ID é gerado automaticamente baseado no length da array de produtos.
 
 PUT ``` http://localhost:3000/products/{id}```  Atualiza os dados do produto associado ao ID informado. Parametros: name (string, price (number, category ( enum Category).
 
@@ -61,14 +61,15 @@ POST: ```http://localhost:3000/orders/``` Cria um novo pedido. Parametros: Uma a
     ]
 }
 ```
+O ID é gerado de forma automática e o preço total do pedido é calculado pelo app.
 
-PUT: ```http://localhost:3000/orders/{id}``` Atualiza o pedido associado ao ID informado. 
+PUT: ```http://localhost:3000/orders/{id}``` Atualiza o pedido associado ao ID informado. Parametros: ID, totalPrice e productList.
 
 DELETE: ```http://localhost:3000/orders/{id}``` Deleta o pedido associado ao ID informado.
 
 ### /exchanges
 
-PUT: ```http://localhost:3000/exchanges/{id}``` Efetua a troca de um produto por outro **da mesma categoria**.
+PUT: ```http://localhost:3000/exchanges/{id}``` Efetua a troca de um produto por outro **da mesma categoria**. Parametros: oldProductId e newProductId.
 
 
 
