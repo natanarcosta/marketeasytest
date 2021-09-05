@@ -17,7 +17,7 @@ export class OrdersService {
     return this.http.post(url, order);
   }
 
-  deleteOrder() {}
-
-  updateOrder() {}
+  deleteOrder(orderId: number) {
+    return this.http.delete(url + orderId);
+  }
 }

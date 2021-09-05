@@ -35,7 +35,12 @@
           </tr>
         </tbody>
       </table>
-      <p>Preço total: {{ order.totalPrice | currency: "BRL" }}</p>
+      <span>Preço total: {{ order.totalPrice | currency: "BRL" }}</span>
+      <div class="d-flex flex-row-reverse bd-highlight">
+        <button class="btn btn-danger me-1 mb-3" type="button" (click)="onDeleteOrder(order.id)">
+          Deletar Pedido
+        </button>
+      </div>
     </div>
   </div>
   <router-outlet></router-outlet>
