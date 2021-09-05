@@ -33,6 +33,13 @@
       >
     </div>
     <div class="form-group">
+      <label for="image">Imagem: (URL)</label>
+      <input type="text" class="form-control" formControlName="image" placeholder="Opcional. Se não preenchido uma imagem padrão será usada.">
+      <span class="help-block text-danger" *ngIf="productForm.get('image')?.errors?.pattern && productForm.get('image')?.touched">
+        URL inválida. Formatos aceitos: JPG, JPEG e PNG.
+      </span>
+    </div>
+    <div class="form-group">
       <label for="category">Categoria:</label>
       <select name="category" class="form-select" formControlName="category">
         <option *ngFor="let _category of categories" value="{{ _category }}">
@@ -52,7 +59,7 @@
       <button
         class="btn btn-success me-1"
         type="submit"
-        [disabled]="!productForm.valid"
+        [disabled]="productForm.invalid"
       >
         {{ editMode ? "Salvar" : "Enviar" }}
       </button>

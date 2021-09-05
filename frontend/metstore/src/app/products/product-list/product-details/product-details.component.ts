@@ -22,6 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   productForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     price: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.pattern(/\.(jpeg|jpg|png)$/)), //Verifica se é uma url de imagem.
     category: new FormControl('', Validators.required),
   });
 
@@ -60,23 +61,27 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.productForm);
     //Se o editMode estiver true, envia uma solicitação para atualizar um produto existente
     if (this.editMode) {
       const updatedProduct = new Product(
         this.productForm.value['name'],
         +this.productForm.value['price'],
-        this.productForm.value['category']
+        this.productForm.value['category'],
+        this.productForm.value['image']
       );
       updatedProduct.id = this.id;
       this.prodService.updateProduct(updatedProduct);
       this.editMode = false;
       return this.productForm.reset();
     } else {
+
       //Se o editMode estiver false, envia uma solicitação para criar um novo produto
       const newProduct = new Product(
         this.productForm.value['name'],
         +this.productForm.value['price'],
-        this.productForm.value['category']
+        this.productForm.value['category'],
+        this.productForm.value['image']
       );
       this.prodService.createProduct(newProduct);
       return this.productForm.reset();

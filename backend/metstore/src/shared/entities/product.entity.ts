@@ -26,12 +26,12 @@ export class Product {
     }
   }
 
-  //Adiciona uma imagem padrão para cada categoria, para produtos que não receberam o parametro image
+  //Adiciona uma imagem padrão de acordo com a categoria do produto, para produtos que não receberam o parametro 'image'
   getImage(category: Category): string {
     let image = '';
     switch (category) {
       case Category.CPU:
-        image = 'https://i.imgur.com/gKqDo2Y.jpg';
+        image = 'https://i.imgur.com/BtFqaZq.jpg';
         break;
       case Category.GPU:
         image = 'https://i.imgur.com/BQg1fAi.jpg';

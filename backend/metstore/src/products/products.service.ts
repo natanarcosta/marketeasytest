@@ -40,6 +40,7 @@ export class ProductsService {
       product.price,
       product.category,
       product.id,
+      product.image
     );
     return this.products.push(newProduct);
   }
