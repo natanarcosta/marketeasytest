@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { OrdersService } from '../orders/orders.service';
+import { Order } from '../shared/models/order.model';
 import { Product } from '../shared/models/product.model';
 import { CartService } from './cart.service';
 
@@ -12,7 +14,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   productsInCart: Product[] = [];
   grandTotal = 0;
   subscription!: Subscription;
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private orderService: OrdersService
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.cartService.cartChanged.subscribe(
@@ -34,5 +39,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
   onRemoveFromCart(id: number) {
     this.cartService.removeProduct(id);
+  }
+  onFinishOrder() {
+    let order = new Order();
+    order.products = [];
+    this.productsInCart.forEach((prod: Product) => {
+      order.products.push({ productId: prod.id, quantity: prod.quantity });
+    });
+    this.orderService.createOrder(order).subscribe();
   }
 }

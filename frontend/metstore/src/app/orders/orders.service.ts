@@ -13,7 +13,9 @@ export class OrdersService {
     return this.http.get<Order[]>(url);
   }
 
-  createOrder() {}
+  createOrder(order: Order) {
+    return this.http.post(url, order);
+  }
 
   deleteOrder() {}
 
