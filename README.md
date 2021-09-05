@@ -28,7 +28,7 @@ GET ```http://localhost:3000/products/category/{categoria}``` Retorna todos prod
 
 POST ```http://localhost:3000/products/``` Cria um produto. Parametros: name (string), price (number), category (enum Category). O ID é gerado automaticamente baseado no length da array de produtos.
 
-PUT ``` http://localhost:3000/products/{id}```  Atualiza os dados do produto associado ao ID informado. Parametros: name (string, price (number, category ( enum Category).
+PUT ``` http://localhost:3000/products/{id}```  Atualiza os dados do produto associado ao ID informado. Parametros: name (string), price (number) e category ( enum Category).
 
 DELETE: ``` http://localhost:3000/products/{id}```  Deleta o produto associado ao ID informado.
 
@@ -37,7 +37,7 @@ GET: ```http://localhost:3000/orders/``` Retorna todos os pedidos.
 
 GET: ```http://localhost:3000/orders/{id}``` Retorna o pedido associado ao ID informado.
 
-POST: ```http://localhost:3000/orders/``` Cria um novo pedido. Parametros: Uma array de products contendo id e quantidade de cada produto. Exemplo:
+POST: ```http://localhost:3000/orders/``` Cria um novo pedido. Parametros: Uma array 'products' contendo id e quantidade de cada produto. Exemplo:
 
 ```
 {
