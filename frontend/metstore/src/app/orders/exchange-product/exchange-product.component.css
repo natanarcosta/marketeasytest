@@ -1,6 +1,6 @@
 .container {
-  position: fixed;
-  top: 25vh;
+  position:absolute;
+  top: 15vh;
   left: 10vw;
   width: 80vw;
   padding: 16px;
