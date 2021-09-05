@@ -81,7 +81,7 @@ export class ProductDetailsComponent implements OnInit {
   onDeleteProd() {
     Swal.fire({
       title: 'Confirmação',
-      text: 'Tem certeza que quer deletar este produto?',
+      text: 'Tem certeza que deseja deletar este produto?',
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '##3085d6',
