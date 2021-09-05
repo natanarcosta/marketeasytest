@@ -10,6 +10,7 @@ import { CartService } from './cart.service';
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   productsInCart: Product[] = [];
+  grandTotal = 0;
   subscription!: Subscription;
   constructor(private cartService: CartService) {}
 
@@ -17,18 +18,21 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.subscription = this.cartService.cartChanged.subscribe(
       (prods: Product[]) => {
         this.productsInCart = prods;
+        this.grandTotal = this.cartService.getCartTotalPrice();
       }
     );
     this.productsInCart = this.cartService.productsInCart;
+    this.grandTotal = this.cartService.getCartTotalPrice();
+    console.log(this.grandTotal);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  onClearCart(){
+  onClearCart() {
     this.cartService.clearCart();
   }
-  onRemoveFromCart(id: number){
+  onRemoveFromCart(id: number) {
     this.cartService.removeProduct(id);
   }
 }

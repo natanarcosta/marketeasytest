@@ -1,12 +1,13 @@
 <div class="container">
   <div class="btn-group mt-2">
-    <button class="btn btn-primary me-2">Continuar Comprando</button>
+    <button class="btn btn-success me-2" >Finalizar Pedido</button>
+    <button class="btn btn-primary me-2" routerLink='products'>Continuar Comprando</button>
     <button class="btn btn-danger me-2" (click)="onClearCart()">
       Esvaziar Carrinho
     </button>
   </div>
   <div class="row">
-    <h2 *ngIf="productsInCart.length == 0">Não há produtos no carrinho!</h2>
+    <h2 *ngIf="productsInCart.length == 0" class="mt-2">Não há produtos no carrinho!</h2>
     <div class="col-6">
       <table class="table" *ngIf="productsInCart.length > 0">
         <thead>
@@ -23,12 +24,20 @@
             <td>{{ product.name }}</td>
             <td>{{ product.price | currency: "BRL" }}</td>
             <td>
-              <button class="btn btn-danger me-1" (click)="onRemoveFromCart(product.id)">X</button>
+              <button
+                class="btn btn-danger me-1"
+                (click)="onRemoveFromCart(product.id)"
+              >
+                X
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-3"><h3>Resumo do Pedido:</h3></div>
+    <div class="col-3">
+      <h3>Resumo do Pedido:</h3>
+      <hr>Valor Total: {{grandTotal | currency: 'BRL'}}
+    </div>
   </div>
 </div>

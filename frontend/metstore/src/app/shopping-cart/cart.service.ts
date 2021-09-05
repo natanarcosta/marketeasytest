@@ -7,7 +7,7 @@ import { Product } from '../shared/models/product.model';
   providedIn: 'root',
 })
 export class CartService {
-  productsInCart: Product[] = [new Product('Teste', 1000, Category.CPU)];
+  productsInCart: Product[] = [];
   cartChanged = new Subject<Product[]>();
   constructor() {}
 
@@ -48,5 +48,14 @@ export class CartService {
   clearCart() {
     this.productsInCart = [];
     this.cartChanged.next(this.productsInCart);
+  }
+
+  getCartTotalPrice(): number {
+    let total = 0;
+    this.productsInCart.forEach((prod) => {
+      total += prod.quantity * prod.price;
+    });
+    console.log('Service total: ' + total);
+    return total;
   }
 }
