@@ -14,6 +14,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManagementComponent } from './management/management.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ExchangeProductComponent } from './orders/exchange-product/exchange-product.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { OrdersComponent } from './orders/orders.component';
     ShoppingCartComponent,
     ManagementComponent,
     OrdersComponent,
+    ExchangeProductComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

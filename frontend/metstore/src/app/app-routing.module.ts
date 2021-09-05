@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ManagementComponent } from './management/management.component';
+import { ExchangeProductComponent } from './orders/exchange-product/exchange-product.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductDetailsComponent } from './products/product-list/product-details/product-details.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
@@ -11,11 +12,13 @@ const routes: Routes = [
   { path: 'products', component: ProductListComponent },
   { path: 'search', component: ProductSearchComponent },
   { path: 'cart', component: ShoppingCartComponent },
-  { path: 'orders', component: OrdersComponent},
-  { path: 'admin', component: ManagementComponent, children:[
-    {path: 'new', component: ProductDetailsComponent},
-    {path: 'edit/:id', component: ProductDetailsComponent}
-  ] },
+  { path: 'orders', component: OrdersComponent },
+  { path: 'exchange', component: ExchangeProductComponent },
+  {path: 'admin', component: ManagementComponent, children: [
+      { path: 'new', component: ProductDetailsComponent },
+      { path: 'edit/:id', component: ProductDetailsComponent },
+    ],
+  },
   { path: '**', redirectTo: 'products' },
 ];
 

@@ -1,0 +1,30 @@
+<div class="backdrop"></div>
+<div class="container">
+  <h5>
+    Você pode trocar {{ oldProduct.name }} por um produto da mesma categoria:
+  </h5>
+  <span>Categoria: {{ oldProduct.category }}</span>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th >Ação</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let product of eligibleProducts">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td >{{ product.price | currency: "BRL" }}</td>
+        <td>
+          <button class="btn btn-success" (click)="onExchange(product.id)">
+            <img src="../../../assets/icons/arrow-down-up.svg"/>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-secondary" routerLink="/orders">Cancelar</button>
+</div>

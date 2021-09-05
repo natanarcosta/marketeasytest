@@ -30,6 +30,10 @@ export class ProductsService {
     return Object.values(Category);
   }
 
+  getProductsByCategory(category: Category) {
+    return this.http.get<Product[]>(url.concat('category/') + category);
+  }
+
   createProduct(newProduct: Product) {
     //Cria um produto e envia uma array atualizada com os produtos disponíveis.
     return this.http.post(url, newProduct).subscribe(() => {

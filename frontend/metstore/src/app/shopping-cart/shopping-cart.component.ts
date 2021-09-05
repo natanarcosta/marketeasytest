@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OrdersService } from '../orders/orders.service';
 import { Order } from '../shared/models/order.model';
@@ -16,7 +17,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   constructor(
     private cartService: CartService,
-    private orderService: OrdersService
+    private orderService: OrdersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,18 +36,24 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
   onClearCart() {
     this.cartService.clearCart();
   }
+
   onRemoveFromCart(id: number) {
     this.cartService.removeProduct(id);
   }
+
   onFinishOrder() {
     let order = new Order();
     order.products = [];
     this.productsInCart.forEach((prod: Product) => {
       order.products.push({ productId: prod.id, quantity: prod.quantity });
     });
-    this.orderService.createOrder(order).subscribe();
+    this.orderService.createOrder(order).subscribe(() => {
+      this.cartService.clearCart();
+      this.router.navigate(['orders']);
+    });
   }
 }
