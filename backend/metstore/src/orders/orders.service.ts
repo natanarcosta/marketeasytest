@@ -38,7 +38,7 @@ export class OrdersService {
   getOrderById(id: number) {
     const order = this.orders.find((_order) => _order.id === id);
     if (!order) {
-      throw new NotFoundException('Order not found!');
+      throw new NotFoundException('Pedido não encontrado!');
     }
     return order;
   }
@@ -59,7 +59,7 @@ export class OrdersService {
   getOrderIndex(id: number) {
     const index = this.orders.findIndex((order) => order.id === id);
     if (index < 0) {
-      throw new NotFoundException('Order not found!');
+      throw new NotFoundException('Pedido não encontrado!');
     }
     return index;
   }

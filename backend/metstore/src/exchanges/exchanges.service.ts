@@ -21,7 +21,7 @@ export class ExchangesService {
       exchangeRequest.oldProductId,
     );
     if (!order.productList.includes(oldProduct)) {
-      throw new NotFoundException('Invalid product id!');
+      throw new NotFoundException('Este ID é inválido!');
     }
     const newProduct = this.productsService.getProductById(
       exchangeRequest.newProductId,
@@ -30,7 +30,7 @@ export class ExchangesService {
     //Verifica se a categoria dos produtos é idêntica
     if (oldProduct.category != newProduct.category) {
       throw new BadRequestException(
-        'Only products within the same category can be exchanged!',
+        'Trocas só podem ser efetuadas entre produtos da mesma categoria!',
       );
     }
     //Index para substituir pelo novo produto

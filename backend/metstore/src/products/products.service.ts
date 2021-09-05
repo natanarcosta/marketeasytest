@@ -50,7 +50,7 @@ export class ProductsService {
   getProductById(id: number) {
     const product = this.products.find((product) => product.id == id);
     if (!product) {
-      throw new NotFoundException('Product not found!');
+      throw new NotFoundException('Produto não encontrado!');
     }
     return product;
   }
@@ -60,7 +60,7 @@ export class ProductsService {
       (product) => product.category === category,
     );
     if (!products.length) {
-      throw new NotFoundException('No products found in this category!');
+      throw new NotFoundException('Nenhum produto cadastro nesta categoria!');
     }
     return products;
   }
@@ -81,7 +81,7 @@ export class ProductsService {
   getProductIndex(id: number) {
     const index = this.products.findIndex((product) => product.id === id);
     if (index < 0) {
-      throw new NotFoundException('Product not found!');
+      throw new NotFoundException('Produto não encontrado!');
     }
     return index;
   }

@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    //Carrega a lista de categorias para o dropdown no cabeçalho
-    this.categories = this.prodService.getCategories();
     //Atualiza o ícone mostrando a quantidade de produtos no carrinho
     this.prodsInCartCount = this.cartService.getProdsInCartCount();
     this.subscription = this.cartService.cartChanged.subscribe(() => {
