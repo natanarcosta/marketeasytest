@@ -12,7 +12,7 @@ export class CartService {
   constructor(private alertService: AlertsService) {}
 
   addProduct(product: Product) {
-    if (this.productsInCart.includes(product)) {
+    if (this.productsInCart.find((_product) => _product.id === product.id)) {
       const index = this.getProductIndex(product.id);
       this.productsInCart[index].quantity++;
     } else {
