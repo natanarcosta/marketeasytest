@@ -63,7 +63,7 @@
         class="btn btn-danger"
         type="button"
         (click)="onDeleteProd()"
-        [disabled]="!editMode"
+        [disabled]="!editMode || productForm.invalid"
       >
         Deletar
       </button>

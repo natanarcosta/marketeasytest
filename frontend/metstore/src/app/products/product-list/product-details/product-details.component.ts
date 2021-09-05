@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Category } from 'src/app/shared/enums/category.enum';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductsService } from '../../products.service';
+import Swal from 'sweetalert2';
+import { reduceEachLeadingCommentRange } from 'typescript';
 
 @Component({
   selector: 'app-product-details',
@@ -78,6 +79,23 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onDeleteProd() {
-    return this.prodService.deleteProduct(this.id);
+    Swal.fire({
+      title: 'Confirmação',
+      text: 'Tem certeza que quer deletar este produto?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '##3085d6',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Deletar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.prodService.deleteProduct(this.id);
+        this.productForm.reset();
+        this.router.navigate(['admin']);
+      } else {
+        return;
+      }
+    });
   }
 }

@@ -61,6 +61,7 @@ export class ProductsService {
     //Deleta um produto e envia uma array atualizada com os produtos disponíveis.
     return this.http.delete(url + id).subscribe(() => {
       this.getAllProducts().subscribe((products: Product[]) => {
+        this.alertService.show('', 'Produto deletado com sucesso!', false);
         this.productsChanged.next(products);
       });
     });
