@@ -54,7 +54,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }).then((res) => {
       if (res.isConfirmed) {
         return this.ordersService.deleteOrder(orderId).subscribe(() => {
-          this.alertService.show('', `Pedido Nº ${orderId} deletado com sucesso!`, false);
+          this.alertService.show(
+            '',
+            `Pedido Nº ${orderId} deletado com sucesso!`,
+            false
+          );
           this.getOrders();
         });
       }

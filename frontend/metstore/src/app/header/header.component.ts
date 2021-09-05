@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.prodsInCartCount = this.cartService.getProdsInCartCount();
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
