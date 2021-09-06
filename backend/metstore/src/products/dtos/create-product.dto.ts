@@ -1,4 +1,11 @@
-import { IsEnum, IsNumber, IsOptional, IsString, IsUrl, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Min,
+} from 'class-validator';
 import { Category } from 'src/shared/enums/category.enum';
 
 export class CreateProductDto {
@@ -19,6 +26,4 @@ export class CreateProductDto {
   @IsOptional()
   @IsUrl()
   image: string;
-
-  
 }
