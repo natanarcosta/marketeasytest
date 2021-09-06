@@ -15,7 +15,7 @@ export class ExchangeProductComponent implements OnInit, OnDestroy {
   oldProduct!: Product;
   orderId!: number;
   eligibleProducts: Product[] = [];
-  subscription!: Subscription;
+  querySubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,38 +25,40 @@ export class ExchangeProductComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.route.queryParamMap.subscribe((params: Params) => {
-      const id = +params.params.id;
-      this.orderId = +params.params.orderId;
-      //Se algum dos parametros for inválido, no caso de tentativa de acessar a rota manualmente, navega de volta para os pedidos
-      if (!id || !this.orderId) {
-        this.router.navigate(['orders']);
-      }
-      this.prodService.getProductById(id).subscribe(
-        (prod: Product) => {
-          this.oldProduct = prod;
-          this.prodService
-            .getProductsByCategory(this.oldProduct.category)
-            .subscribe((res) => {
-              this.eligibleProducts = res;
-            });
-        },
-        (error) => {
-          if (error.status == 404) {
-            Swal.fire({
-              title: 'Erro',
-              text: `Produto com ID ${id} não encontrado!`,
-            }).then(() => {
-              this.router.navigate(['orders']);
-            });
-          }
+    this.querySubscription = this.route.queryParamMap.subscribe(
+      (params: Params) => {
+        const id = +params.params.id;
+        this.orderId = +params.params.orderId;
+        //Se algum dos parametros for inválido, no caso de tentativa de acessar a rota manualmente, navega de volta para os pedidos
+        if (!id || !this.orderId) {
+          this.router.navigate(['orders']);
         }
-      );
-    });
+        this.prodService.getProductById(id).subscribe(
+          (prod: Product) => {
+            this.oldProduct = prod;
+            this.prodService
+              .getProductsByCategory(this.oldProduct.category)
+              .subscribe((res) => {
+                this.eligibleProducts = res;
+              });
+          },
+          (error) => {
+            if (error.status == 404) {
+              Swal.fire({
+                title: 'Erro',
+                text: `Produto com ID ${id} não encontrado!`,
+              }).then(() => {
+                this.router.navigate(['orders']);
+              });
+            }
+          }
+        );
+      }
+    );
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.querySubscription.unsubscribe();
   }
 
   onExchange(newProdId: number) {

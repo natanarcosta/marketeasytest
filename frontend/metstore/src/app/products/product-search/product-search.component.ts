@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
@@ -9,7 +9,7 @@ import { ProductsService } from '../products.service';
   templateUrl: './product-search.component.html',
   styleUrls: ['./product-search.component.css'],
 })
-export class ProductSearchComponent implements OnInit {
+export class ProductSearchComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   paramsSub!: Subscription;
   searchedName!: string;
@@ -26,6 +26,11 @@ export class ProductSearchComponent implements OnInit {
     this.getFilteredProducts(this.searchedName);
   }
 
+  ngOnDestroy() {
+    this.paramsSub.unsubscribe();
+  }
+
+  //Retorna produtos que possuem o termo pesquisado em seu nome
   getFilteredProducts(searchQuery: string) {
     this.prodService.getAllProducts().subscribe((res: Product[]) => {
       this.products = res.filter((prod) => {
@@ -38,6 +43,7 @@ export class ProductSearchComponent implements OnInit {
     if (search == '') {
       this.router.navigate(['products/list']);
     }
+    this.searchedName = search;
     this.getFilteredProducts(search);
   }
 }

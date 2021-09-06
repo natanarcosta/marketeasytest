@@ -12,7 +12,7 @@ import { CartService } from '../shopping-cart/cart.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   prodsInCartCount = 0;
-  subscription = new Subscription();
+  cartSubscription = new Subscription();
   constructor(
     private router: Router,
     private cartService: CartService
@@ -21,12 +21,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Atualiza o ícone mostrando a quantidade de produtos no carrinho
     this.prodsInCartCount = this.cartService.getProdsInCartCount();
-    this.subscription = this.cartService.cartChanged.subscribe(() => {
+    this.cartSubscription = this.cartService.cartChanged.subscribe(() => {
       this.prodsInCartCount = this.cartService.getProdsInCartCount();
     });
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
   }
 
   onToCart() {

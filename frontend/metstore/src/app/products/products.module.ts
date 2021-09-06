@@ -7,16 +7,16 @@ import { ProductListItemComponent } from './product-list/product-list-item/produ
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-manage/product-edit/product-edit.component';
 import { ProductManageComponent } from './product-manage/product-manage.component';
-import { ProductsComponent } from './products.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { ProductsComponent } from './products.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductListComponent,
     ProductListItemComponent,
-    ProductEditComponent,
     ProductManageComponent,
+    ProductEditComponent,
     ProductSearchComponent,
   ],
   imports: [

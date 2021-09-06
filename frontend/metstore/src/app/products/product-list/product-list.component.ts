@@ -43,6 +43,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   onSearch(search: string) {
-    this.router.navigate(['products/search'], {queryParams: {name: search}});
+    this.router.navigate(['products/search'], {
+      queryParams: { name: search },
+    });
   }
 }

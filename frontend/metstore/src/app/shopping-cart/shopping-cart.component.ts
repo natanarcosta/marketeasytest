@@ -16,7 +16,7 @@ import { CartService } from './cart.service';
 export class ShoppingCartComponent implements OnInit, OnDestroy {
   productsInCart: Product[] = [];
   grandTotal = 0;
-  subscription!: Subscription;
+  cartSubscription!: Subscription;
   constructor(
     private cartService: CartService,
     private orderService: OrdersService,
@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.cartService.cartChanged.subscribe(
+    this.cartSubscription = this.cartService.cartChanged.subscribe(
       (prods: Product[]) => {
         this.productsInCart = prods;
         this.grandTotal = this.cartService.getCartTotalPrice();
@@ -36,7 +36,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.cartSubscription.unsubscribe();
   }
 
   onClearCart() {
