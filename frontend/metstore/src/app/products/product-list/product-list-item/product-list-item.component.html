@@ -1,6 +1,10 @@
 <div class="col mb-5">
-  <div class="card mb-3 shadow" style="height: 30rem;">
-    <img src="{{ product.image }}" class="card-img-top mt-1 mb-1 ml=1 mr-1" style="height: 15rem;"/>
+  <div class="card mb-3 shadow" style="height: 30rem">
+    <img
+      src="{{ product.image }}"
+      class="card-img-top mt-1 mb-1 ml=1 mr-1"
+      style="height: 15rem"
+    />
     <div class="card-body p-4">
       <div class="text-center">
         <span class="card-text"> {{ product.category | titlecase }}</span>
@@ -8,13 +12,15 @@
           {{ product.name }}
         </h5>
       </div>
-      <hr>
-      <span class="card-text">Preço: {{ product.price | currency: 'BRL' }}</span>
+      <hr />
+      <span class="card-text"
+        >Preço: {{ product.price | currency: "BRL" }}</span
+      >
     </div>
-    <div class="btn-group">
-      <button class="btn btn-primary me-2">Comprar</button>
-      <button class="btn btn-success" (click)="sendToCart(product)">
+    <div class="btn-group mb-3" style="width: 50%; left: 25%">
+      <button class="btn" (click)="sendToCart(product)" style="background-color: #F52C56;">
         <img src="../../../../assets/icons/cart-plus.svg" class="img" />
+        <span style="color:white; margin-left: 5px;">Comprar</span>
       </button>
     </div>
   </div>

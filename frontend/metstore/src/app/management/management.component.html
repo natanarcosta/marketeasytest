@@ -15,7 +15,8 @@
       </ul>
     </div>
     <div class="col">
-      <router-outlet></router-outlet>
+      <h2 *ngIf="!outlet.isActivated" class="ms-2">Selecione um produto!</h2>
+      <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </div>
 </div>
