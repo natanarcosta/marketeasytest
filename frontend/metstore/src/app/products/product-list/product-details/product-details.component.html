@@ -18,10 +18,8 @@
         type="text"
         class="form-control"
         formControlName="price"
-        mask="separator.2"
-        thousandSeparator="."
-        [decimalMarker]="','"
-        prefix="R$ "
+        currencyMask
+        [options]="{prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left'}"
       />
       <span
         class="help-block text-danger"

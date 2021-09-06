@@ -20,6 +20,7 @@ import { ExchangeProductComponent } from './orders/exchange-product/exchange-pro
 import { AlertsComponent } from './alerts/alerts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 registerLocaleData(localPt);
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ registerLocaleData(localPt);
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    NgxMaskModule.forRoot(),
+    NgxCurrencyModule
+    // NgxMaskModule.forRoot(),
   ],
   providers: [{
     provide: LOCALE_ID,

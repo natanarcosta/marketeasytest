@@ -45,15 +45,17 @@ export class ProductDetailsComponent implements OnInit {
   initForm() {
     if (this.editMode) {
       this.prodService.getProductById(this.id).subscribe(
-        (prod) => this.productForm.patchValue(prod),//Carrega os dados do produto no formulario para edição.
+        (prod: Product) => {
+          this.productForm.patchValue(prod);
+        }, //Carrega os dados do produto no formulario para edição.
         (error) => {
-          if(error.status === 404) {
+          if (error.status === 404) {
             Swal.fire({
-              title:'Erro',
-              text: 'Não foi possível encontrar o produto de ID ' + this.id
+              title: 'Erro',
+              text: 'Não foi possível encontrar o produto de ID ' + this.id,
             }).then(() => {
-              this.router.navigate(['admin'])
-            })
+              this.router.navigate(['admin']);
+            });
           }
         }
       );
@@ -75,7 +77,6 @@ export class ProductDetailsComponent implements OnInit {
       this.editMode = false;
       return this.productForm.reset();
     } else {
-
       //Se o editMode estiver false, envia uma solicitação para criar um novo produto
       const newProduct = new Product(
         this.productForm.value['name'],
