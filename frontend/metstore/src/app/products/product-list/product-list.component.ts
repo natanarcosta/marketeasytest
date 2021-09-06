@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
 import Swal from 'sweetalert2';
@@ -17,11 +17,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private prodService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    console.log('ini');
     this.subscription = this.prodService.getAllProducts().subscribe(
       (res) => {
         this.products = res;

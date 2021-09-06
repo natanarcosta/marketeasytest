@@ -21,6 +21,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ) {}
   orders: Order[] = [];
   subscription!: Subscription;
+  isLoading = true;
   ngOnInit(): void {
     this.getOrders();
     this.subscription = this.exchangeService.onProdExchanged.subscribe(() => {
@@ -38,9 +39,22 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
   //Busca os pedidos e ordena em ordem crescente de IDs
   getOrders() {
-    this.ordersService.getAllOrders().subscribe((orders: Order[]) => {
-      this.orders = orders.sort((a, b) => (a.id > b.id ? 1 : -1));
-    });
+    this.ordersService.getAllOrders().subscribe(
+      (orders: Order[]) => {
+        this.orders = orders.sort((a, b) => (a.id > b.id ? 1 : -1));
+        this.isLoading = false;
+      },
+      (error) => {
+        if (error.status == 0) {
+          Swal.fire({
+            title: 'Erro',
+            text: 'Falha ao conectar-se ao servidor! Tente novamente atualizando a página!',
+            showConfirmButton: true,
+            confirmButtonText: 'Ok',
+          });
+        }
+      }
+    );
   }
 
   onDeleteOrder(orderId: number) {
@@ -55,7 +69,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
       if (res.isConfirmed) {
         return this.ordersService.deleteOrder(orderId).subscribe(
           () => {
-            this.alertService.show('',`Pedido Nº ${orderId} deletado com sucesso!`,false);
+            this.alertService.show(
+              '',
+              `Pedido Nº ${orderId} deletado com sucesso!`,
+              false
+            );
             this.getOrders();
           },
           (error) => {
