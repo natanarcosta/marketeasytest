@@ -10,7 +10,13 @@ export class OrdersService {
   orders: Order[] = [];
 
   createOrder(newOrder: CreateOrderDTO) {
-    const orderId = this.orders.length + 1;
+    let orderId: number;
+    //Se for o primeiro pedido, id = 1, se não, id = id do ultimo pedido +1
+    if (!this.orders.length) {
+      orderId = 1;
+    } else {
+      orderId = this.orders[this.orders.length - 1].id + 1;
+    }
     //Cria uma array de IDs de produtos associados com este pedido
     let productsIds: number[] = [];
     newOrder.products.forEach((product) => productsIds.push(product.productId));
@@ -19,7 +25,8 @@ export class OrdersService {
     //Atualiza a quantidade de cada produto
     orderProducts.forEach((product) => {
       product.quantity = newOrder.products.find(
-        (orderProd) => orderProd.productId === product.id).quantity
+        (orderProd) => orderProd.productId === product.id,
+      ).quantity;
     });
     let order: Order = new Order(orderId, orderProducts);
     order.totalPrice = this.getTotalPrice(order);
