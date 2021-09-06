@@ -1,5 +1,5 @@
 <div class="container sticky-top shadow mt-1">
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="form-group">
       <label for="name">Nome:</label>
       <input type="text" class="form-control" formControlName="name" />

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductsService } from '../products.service';
 
@@ -10,14 +11,33 @@ import { ProductsService } from '../products.service';
 })
 export class ProductSearchComponent implements OnInit {
   products: Product[] = [];
+  paramsSub!: Subscription;
+  searchedName!: string;
   constructor(
     private route: ActivatedRoute,
-    private prodService: ProductsService
+    private prodService: ProductsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((param: Params) => {
-      let _param = param.product;
+    this.paramsSub = this.route.queryParamMap.subscribe((params: Params) => {
+      this.searchedName = params.params.name;
     });
+    this.getFilteredProducts(this.searchedName);
+  }
+
+  getFilteredProducts(searchQuery: string) {
+    this.prodService.getAllProducts().subscribe((res: Product[]) => {
+      this.products = res.filter((prod) => {
+        return prod.name.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+    });
+  }
+
+  onSearch(search: string) {
+    if (search == '') {
+      this.router.navigate(['products/list']);
+    }
+    this.getFilteredProducts(search);
   }
 }

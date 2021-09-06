@@ -33,9 +33,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['cart']);
   }
 
-  onSearch(searched: HTMLInputElement) {
-    this.router.navigate(['search'], {
-      queryParams: { product: searched.value },
-    });
-  }
 }

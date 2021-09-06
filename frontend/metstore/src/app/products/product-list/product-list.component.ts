@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
@@ -17,6 +18,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(private prodService: ProductsService, private router: Router) {}
 
   ngOnInit(): void {
+    console.log('ini');
     this.subscription = this.prodService.getAllProducts().subscribe(
       (res) => {
         this.products = res;
@@ -39,5 +41,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  onSearch() {}
+
+  onSearch(search: string) {
+    this.router.navigate(['products/search'], {queryParams: {name: search}});
+  }
 }

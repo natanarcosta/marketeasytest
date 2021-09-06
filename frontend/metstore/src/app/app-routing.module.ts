@@ -2,15 +2,22 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExchangeProductComponent } from './orders/exchange-product/exchange-product.component';
 import { OrdersComponent } from './orders/orders.component';
-import { ProductEditComponent } from './products/product-manage/product-edit/product-edit.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductSearchComponent } from './products/product-search/product-search.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ProductEditComponent } from './products/product-manage/product-edit/product-edit.component';
 import { ProductManageComponent } from './products/product-manage/product-manage.component';
+import { ProductSearchComponent } from './products/product-search/product-search.component';
+import { ProductsComponent } from './products/products.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
-  { path: 'products', component: ProductListComponent },
-  { path: 'search', component: ProductSearchComponent },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    children: [
+      { path: 'list', component: ProductListComponent },
+      { path: 'search', component: ProductSearchComponent },
+    ],
+  },
   { path: 'cart', component: ShoppingCartComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'exchange', component: ExchangeProductComponent },
@@ -22,7 +29,7 @@ const routes: Routes = [
       { path: 'edit/:id', component: ProductEditComponent },
     ],
   },
-  { path: '**', redirectTo: 'products' },
+  { path: '**', redirectTo: 'products/list' },
 ];
 
 @NgModule({
