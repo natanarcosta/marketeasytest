@@ -7,12 +7,13 @@ import { Product } from 'src/app/shared/models/product.model';
 import Swal from 'sweetalert2';
 import { ProductsService } from '../../products.service';
 
+
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css'],
+  selector: 'app-product-edit',
+  templateUrl: './product-edit.component.html',
+  styleUrls: ['./product-edit.component.css'],
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ProductEditComponent implements OnInit, OnDestroy {
   id!: number;
   //editMode determina se o formulário será carregado em branco (novo produto) ou com dados do produto à ser editado
   editMode = false;

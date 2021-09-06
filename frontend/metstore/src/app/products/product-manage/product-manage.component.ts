@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProductsService } from '../products/products.service';
-import { Product } from '../shared/models/product.model';
+import { ProductsService } from '../products.service';
+import { Product } from '../../shared/models/product.model';
 
 @Component({
-  selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.css'],
+  selector: 'app-product-manage',
+  templateUrl: './product-manage.component.html',
+  styleUrls: ['./product-manage.component.css'],
 })
-export class ManagementComponent implements OnInit, OnDestroy {
+export class ProductManageComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   subscription!: Subscription;
   constructor(private prodService: ProductsService) {}
