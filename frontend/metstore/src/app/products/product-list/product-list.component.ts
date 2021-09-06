@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/shared/models/product.model';
 import Swal from 'sweetalert2';
@@ -15,7 +14,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   errorMessage = '';
   subscription!: Subscription;
-  constructor(private prodService: ProductsService, private router: Router) {}
+  constructor(
+    private prodService: ProductsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     console.log('ini');

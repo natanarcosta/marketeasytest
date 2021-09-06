@@ -41,7 +41,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
 
   onSearch(search: string) {
     if (search == '') {
-      this.router.navigate(['products/list']);
+      this.router.navigate(['list']);
     }
     this.searchedName = search;
     this.getFilteredProducts(search);

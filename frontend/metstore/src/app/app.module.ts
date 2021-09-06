@@ -18,12 +18,12 @@ registerLocaleData(localPt);
   declarations: [AppComponent, HeaderComponent, AlertsComponent],
   imports: [
     BrowserModule,
+    ProductsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     OrdersModule,
     ShoppingCartModule,
-    ProductsModule,
     NgbModule,
   ],
   providers: [
