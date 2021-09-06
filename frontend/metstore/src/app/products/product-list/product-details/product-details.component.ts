@@ -63,7 +63,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.productForm);
     //Se o editMode estiver true, envia uma solicitação para atualizar um produto existente
     if (this.editMode) {
       const updatedProduct = new Product(

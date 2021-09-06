@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString, IsUrl, Min } from 'class-validator';
 import { Category } from 'src/shared/enums/category.enum';
 
 export class CreateProductDto {
@@ -6,6 +6,7 @@ export class CreateProductDto {
   name: string;
 
   @IsNumber()
+  @Min(0)
   price: number;
 
   @IsEnum(Category)
