@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Category } from 'src/app/shared/enums/category.enum';
 import { Product } from 'src/app/shared/models/product.model';
-import { ProductsService } from '../../products.service';
 import Swal from 'sweetalert2';
-import { reduceEachLeadingCommentRange } from 'typescript';
+import { ProductsService } from '../../products.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   id!: number;
   //editMode determina se o formulário será carregado em branco (novo produto) ou com dados do produto à ser editado
   editMode = false;
   product!: Product;
   categories: Category[] = [];
+  paramsSub!: Subscription;
 
   productForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -35,11 +36,15 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.categories = this.prodService.getCategories();
     //Se há o parametro ID na rota, muda o editMode para true e carrega o formulario com os dados do produto a ser editado.
-    this.route.paramMap.subscribe((params: Params) => {
+    this.paramsSub = this.route.paramMap.subscribe((params: Params) => {
       this.id = +params.params.id;
       this.editMode = params.params.id != null;
       this.initForm();
     });
+  }
+
+  ngOnDestroy() {
+    this.paramsSub.unsubscribe();
   }
 
   initForm() {

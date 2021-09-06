@@ -12,6 +12,8 @@ export class CartService {
   constructor(private alertService: AlertsService) {}
 
   addProduct(product: Product) {
+    //Se já existe uma instancia do produto no carrinho, aumenta a quantidade
+    //Se não existe, adiciona com quantidade = 1
     if (this.productsInCart.find((_product) => _product.id === product.id)) {
       const index = this.getProductIndex(product.id);
       this.productsInCart[index].quantity++;
@@ -28,6 +30,7 @@ export class CartService {
   }
 
   removeProduct(id: number) {
+    //Remove um produto do carrinho
     const index = this.getProductIndex(id);
     this.productsInCart.splice(index, 1);
     this.alertService.show('', 'Item removido do carrinho!', false);
@@ -35,6 +38,7 @@ export class CartService {
   }
 
   updateQnt(id: number, qnt: number) {
+    //Atualiza a quantidade de um produto
     const index = this.getProductIndex(id);
     return (this.productsInCart[index].quantity = qnt);
   }
@@ -48,10 +52,12 @@ export class CartService {
   }
 
   getProdsInCartCount() {
+    //Informa a quantidade de produtos para ícone do carrinho na barra de navegação
     return this.productsInCart.length;
   }
 
   clearCart(showAlert: boolean) {
+    //Exclui todos itens do carrinho
     this.productsInCart = [];
     this.cartChanged.next(this.productsInCart);
     if (showAlert) {
@@ -60,6 +66,7 @@ export class CartService {
   }
 
   getCartTotalPrice(): number {
+    //Calcula o preço total do carrinho
     let total = 0;
     this.productsInCart.forEach((prod) => {
       total += prod.quantity * prod.price;

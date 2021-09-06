@@ -19,8 +19,6 @@ export class ProductsService {
     return this.http.get<Product[]>(url);
   }
 
-  searchProducts(searchedProd: string) {}
-
   getProductById(id: number) {
     //Retorna um produto baseado no ID do mesmo
     return this.http.get<Product>(url + id);
