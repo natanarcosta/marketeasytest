@@ -11,11 +11,11 @@ Nas pastas backend/METstore e frontend/METstore
 ``` npm install```
 
 ### Iniciando o backend no modo desenvolvedor:
-Na pasta frontend/METstore:
+Na pasta backend/METstore:
 ```npm run start:dev ```
 
 ### Iniciando o frontend no modo desenvolvedor:
-Na pasta backend/METstore:
+Na pasta frontend/METstore:
 ``` ng serve ```
 
 ## Rotas da API:
