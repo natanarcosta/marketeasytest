@@ -20,10 +20,10 @@ export class CreateProductDto {
   category: Category;
 
   @IsOptional()
-  @IsNumber()
-  id: number;
-
-  @IsOptional()
   @IsUrl()
   image: string;
+
+  @IsOptional()
+  @IsNumber()
+  quantity: number;
 }

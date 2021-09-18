@@ -14,16 +14,16 @@ export class ExchangesService {
     private productsService: ProductsService,
   ) {}
 
-  exchangeProduct(orderId: number, exchangeRequest: ExchangeProductDto) {
+  async exchangeProduct(orderId: number, exchangeRequest: ExchangeProductDto) {
     //Carrega o pedido a ser editado e verifica se existe o produto a ser trocado
     let order = this.ordersService.getOrderById(orderId);
-    const oldProduct = this.productsService.getProductById(
+    const oldProduct = await this.productsService.getProductById(
       exchangeRequest.oldProductId,
     );
     if (!order.productList.includes(oldProduct)) {
       throw new NotFoundException('Este ID é inválido!');
     }
-    const newProduct = this.productsService.getProductById(
+    const newProduct = await this.productsService.getProductById(
       exchangeRequest.newProductId,
     );
     newProduct.quantity = oldProduct.quantity;

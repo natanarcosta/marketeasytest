@@ -1,33 +1,28 @@
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Category } from '../enums/category.enum';
 
+@Entity()
 export class Product {
+  @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
   name: string;
+
+  @Column()
   price: number;
+
+  @Column()
   category: Category;
+
+  @Column({ nullable: true })
   quantity: number;
+
+  @Column({ nullable: true })
   image: string;
 
-  constructor(
-    _name: string,
-    _price: number,
-    _category: Category,
-    _id?: number,
-    _img?: string,
-  ) {
-    this.name = _name;
-    this.price = _price;
-    this.category = _category;
-    this.id = _id;
-    if (!_img) {
-      this.image = this.getImage(this.category);
-    } else {
-      this.image = _img;
-    }
-  }
-
   //Adiciona uma imagem padrão de acordo com a categoria do produto, para produtos que não receberam o parametro 'image'
-  getImage(category: Category): string {
+  /* getImage(category: Category): string {
     let image = '';
     switch (category) {
       case Category.CPU:
@@ -62,5 +57,5 @@ export class Product {
         break;
     }
     return image;
-  }
+  } */
 }

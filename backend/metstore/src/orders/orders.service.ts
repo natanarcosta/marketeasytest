@@ -75,9 +75,10 @@ export class OrdersService {
   getProducts(ids: number[]): Product[] {
     //Retorna uma array de produtos usando uma array de IDs. Usado para criar um novo pedido
     let products: Product[] = [];
-    ids.forEach((productId) =>
-      products.push(this.productsService.getProductById(productId)),
-    );
+    ids.forEach(async (productId) => {
+      let newProd = await this.productsService.getProductById(productId);
+      products.push(newProd);
+    });
     return products;
   }
 
