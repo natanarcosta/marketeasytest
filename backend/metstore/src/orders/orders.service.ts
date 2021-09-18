@@ -1,68 +1,88 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ProductsService } from 'src/products/products.service';
 import { Order } from 'src/shared/entities/order.entity';
 import { Product } from 'src/shared/entities/product.entity';
+import { Repository } from 'typeorm';
 import { CreateOrderDTO } from './dtos/create-order.dto';
 
 @Injectable()
 export class OrdersService {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    @InjectRepository(Order) private ordersRepo: Repository<Order>,
+  ) {}
   orders: Order[] = [];
 
   createOrder(newOrder: CreateOrderDTO) {
-    let orderId: number;
-    //Se for o primeiro pedido, id = 1, se não, id = id do ultimo pedido +1
-    if (!this.orders.length) {
-      orderId = 1;
-    } else {
-      orderId = this.orders[this.orders.length - 1].id + 1;
+    //Cria novo pedido
+    const order = this.ordersRepo.create(newOrder);
+    return this.ordersRepo.save(order);
+  }
+
+  async getAllOrders() {
+    //Retorna todos pedidos
+    let orders = await this.ordersRepo.find();
+    for (let order of orders) {
+      order = await this.updateOrderDetails(order);
     }
-    //Cria uma array de IDs de produtos associados com este pedido
-    let productsIds: number[] = [];
-    newOrder.products.forEach((product) => productsIds.push(product.productId));
-    //Cria uma array de produtos com os IDs passados anteriormente
-    let orderProducts: Product[] = this.getProducts(productsIds);
-    //Atualiza a quantidade de cada produto
-    orderProducts.forEach((product) => {
-      product.quantity = newOrder.products.find(
-        (orderProd) => orderProd.productId === product.id,
-      ).quantity;
-    });
-    let order: Order = new Order(orderId, orderProducts);
-    order.totalPrice = this.getTotalPrice(order);
-    return this.orders.push(order);
+    return orders;
   }
 
-  addOrder(order: Order) {
-    return this.orders.push(order);
-  }
-
-  getAllOrders() {
-    return this.orders;
-  }
-
-  getOrderById(id: number) {
-    const order = this.orders.find((_order) => _order.id === id);
+  async getOrderById(id: number) {
+    //Retorna pedido com ID informado
+    let order = await this.ordersRepo.findOne(id);
     if (!order) {
-      throw new NotFoundException('Pedido não encontrado!');
+      throw new NotFoundException('Pedido não encontrado.');
     }
+    order = await this.updateOrderDetails(order);
     return order;
   }
 
-  updateOrder(id: number, updatedOrder: Order) {
-    //Atualiza o pedido usando o index, que já retorna erro caso o id passado seja inválido
-    const index = this.getOrderIndex(id);
-    this.orders[index].id = id;
-    this.orders[index].productList = updatedOrder.productList;
-    this.orders[index].totalPrice = updatedOrder.totalPrice;
-    return this.getOrderById(id);
+  async updateOrderDetails(order: Order) {
+    //Atualiza lista de pedidos usando os IDs e quantidades informados
+    order.productList = await this.getOrderProducts(order);
+    //Atualiza o preço total usando a lista de produtos e suas quantidades
+    order.totalPrice = this.getOrderTotalPrice(order);
+    return order;
   }
 
-  deleteOrder(id: number) {
-    //Deleta um pedido usando o Index, que já retorna erro caso o id seja inválido.
-    const index = this.getOrderIndex(id);
-    return this.orders.splice(index, 1);
+  async getOrderProducts(order: Order) {
+    //Cria uma array de produtos com os IDs e quantidades informados
+    let orderProducts: Product[] = [];
+    for (const product of order.products) {
+      let prod = await this.productsService.getProductById(product.productId);
+      prod.quantity = product.quantity;
+      orderProducts.push(prod);
+    }
+    return orderProducts;
   }
+
+  getOrderTotalPrice(order: Order) {
+    //Calcula o preço total do pedido
+    let totalPrice = 0;
+    order.productList.forEach((prod) => {
+      totalPrice += prod.quantity * prod.price;
+    });
+    return totalPrice;
+  }
+
+  async updateOrder(id: number, updatedOrder: CreateOrderDTO) {
+    //Atualiza o pedido usando o index, que já retorna erro caso o id passado seja inválido
+    let order = await this.ordersRepo.findOne(id);
+    console.log('Updated: ' + updatedOrder);
+    console.log(order);
+    order.products = updatedOrder.products;
+    return this.ordersRepo.save(order);
+  }
+
+  async deleteOrder(id: number) {
+    //Deleta um pedido usando o Index, que já retorna erro caso o id seja inválido.
+    const order = await this.getOrderById(id);
+    return this.ordersRepo.remove(order);
+  }
+
+  addOrder(order: Order) {}
 
   getOrderIndex(id: number) {
     const index = this.orders.findIndex((order) => order.id === id);
@@ -70,24 +90,5 @@ export class OrdersService {
       throw new NotFoundException('Pedido não encontrado!');
     }
     return index;
-  }
-
-  getProducts(ids: number[]): Product[] {
-    //Retorna uma array de produtos usando uma array de IDs. Usado para criar um novo pedido
-    let products: Product[] = [];
-    ids.forEach(async (productId) => {
-      let newProd = await this.productsService.getProductById(productId);
-      products.push(newProd);
-    });
-    return products;
-  }
-
-  getTotalPrice(order: Order) {
-    //Calcula o preço total do pedido.
-    let totalPrice = 0;
-    order.productList.forEach((product) => {
-      totalPrice += product.price * product.quantity;
-    });
-    return totalPrice;
   }
 }

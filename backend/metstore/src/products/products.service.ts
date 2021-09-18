@@ -52,7 +52,7 @@ export class ProductsService {
       .setParameters({ category: category })
       .getMany();
     if (!products.length) {
-      throw new NotFoundException('Nenhum produto cadastro nesta categoria!');
+      throw new NotFoundException('Nenhum produto cadastrado nesta categoria!');
     }
     return products;
   }

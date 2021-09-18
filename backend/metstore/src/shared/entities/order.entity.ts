@@ -1,13 +1,31 @@
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Product } from './product.entity';
 
+@Entity('orders')
 export class Order {
+  @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({
+    type: 'simple-json',
+  })
+  products: {
+    productId: number;
+    quantity: number;
+  }[];
+
+  @CreateDateColumn()
+  created: Date;
+
+  @UpdateDateColumn()
+  updated: Date;
+
   totalPrice: number;
   productList: Product[];
-
-  constructor(_id: number, productList, totalPrice: number = 0) {
-    this.id = _id;
-    this.productList = productList;
-    this.totalPrice = totalPrice;
-  }
 }

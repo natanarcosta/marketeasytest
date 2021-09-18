@@ -16,7 +16,7 @@ export class ExchangesService {
 
   async exchangeProduct(orderId: number, exchangeRequest: ExchangeProductDto) {
     //Carrega o pedido a ser editado e verifica se existe o produto a ser trocado
-    let order = this.ordersService.getOrderById(orderId);
+    let order = await this.ordersService.getOrderById(orderId);
     const oldProduct = await this.productsService.getProductById(
       exchangeRequest.oldProductId,
     );
@@ -38,7 +38,7 @@ export class ExchangesService {
       (product) => product.id === oldProduct.id,
     );
     order.productList[oldProductIndex] = newProduct;
-    order.totalPrice = this.ordersService.getTotalPrice(order);
+    //order.totalPrice = this.ordersService.getTotalPrice(order);
     this.ordersService.deleteOrder(orderId);
     return this.ordersService.addOrder(order);
   }
