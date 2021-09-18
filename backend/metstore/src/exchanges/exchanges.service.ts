@@ -17,15 +17,10 @@ export class ExchangesService {
   async exchangeProduct(orderId: number, exchangeRequest: ExchangeProductDto) {
     //Carrega o pedido a ser editado e verifica se existe o produto a ser trocado
     let order = await this.ordersService.getOrderById(orderId);
-    order = await this.ordersService.updateOrderDetails(order);
     const oldProduct = await this.productsService.getProductById(
       exchangeRequest.oldProductId,
     );
-    if (
-      !order.products.find(
-        (prod) => prod.productId === exchangeRequest.oldProductId,
-      )
-    ) {
+    if (!order.products.find((prod) => prod.productId === oldProduct.id)) {
       throw new NotFoundException(
         'O pedido não tem um produto com o ID informado.',
       );
@@ -33,16 +28,16 @@ export class ExchangesService {
     const newProduct = await this.productsService.getProductById(
       exchangeRequest.newProductId,
     );
-    newProduct.quantity = oldProduct.quantity;
     //Verifica se a categoria dos produtos é idêntica
     if (oldProduct.category != newProduct.category) {
       throw new BadRequestException(
         'Trocas só podem ser efetuadas entre produtos da mesma categoria!',
       );
     }
-    //Index para substituir pelo novo produto
+    //Troca o ID antigo pelo novo.
     order.products.find((prod) => prod.productId === oldProduct.id).productId =
       newProduct.id;
+
     return this.ordersService.updateOrder(order.id, order);
   }
 }
