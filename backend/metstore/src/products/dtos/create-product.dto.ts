@@ -2,9 +2,9 @@ import {
   IsEnum,
   IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
   IsUrl,
-  Min,
 } from 'class-validator';
 import { Category } from 'src/shared/enums/category.enum';
 
@@ -12,14 +12,12 @@ export class CreateProductDto {
   @IsString()
   name: string;
 
-  @IsNumber()
-  @Min(0)
+  @IsPositive()
   price: number;
 
   @IsEnum(Category)
   category: Category;
 
-  @IsOptional()
   @IsUrl()
   image: string;
 
