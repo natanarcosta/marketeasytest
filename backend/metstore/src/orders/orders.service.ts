@@ -70,8 +70,6 @@ export class OrdersService {
   async updateOrder(id: number, updatedOrder: CreateOrderDTO) {
     //Atualiza o pedido usando o index, que já retorna erro caso o id passado seja inválido
     let order = await this.ordersRepo.findOne(id);
-    console.log('Updated: ' + updatedOrder);
-    console.log(order);
     order.products = updatedOrder.products;
     return this.ordersRepo.save(order);
   }
@@ -80,15 +78,5 @@ export class OrdersService {
     //Deleta um pedido usando o Index, que já retorna erro caso o id seja inválido.
     const order = await this.getOrderById(id);
     return this.ordersRepo.remove(order);
-  }
-
-  addOrder(order: Order) {}
-
-  getOrderIndex(id: number) {
-    const index = this.orders.findIndex((order) => order.id === id);
-    if (index < 0) {
-      throw new NotFoundException('Pedido não encontrado!');
-    }
-    return index;
   }
 }

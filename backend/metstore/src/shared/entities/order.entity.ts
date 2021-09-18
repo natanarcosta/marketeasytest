@@ -28,4 +28,5 @@ export class Order {
 
   totalPrice: number;
   productList: Product[];
+  order: Promise<Order>;
 }
