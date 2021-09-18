@@ -37,10 +37,18 @@ export class CartService {
     return this.cartChanged.next(this.productsInCart);
   }
 
-  updateQnt(id: number, qnt: number) {
-    //Atualiza a quantidade de um produto
+  incrementQnt(id: number) {
+    //Aumenta a quantidade do produto no carrinho em +1
     const index = this.getProductIndex(id);
-    return (this.productsInCart[index].quantity = qnt);
+    this.productsInCart[index].quantity++;
+    return this.cartChanged.next();
+  }
+
+  decreaseQnt(id: number) {
+    //Reduz a quantidade do produto no carrinho em -1
+    const index = this.getProductIndex(id);
+    this.productsInCart[index].quantity--;
+    return this.cartChanged.next();
   }
 
   getProductIndex(id: number) {

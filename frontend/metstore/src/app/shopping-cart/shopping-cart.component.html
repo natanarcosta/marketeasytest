@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of productsInCart">
-            <td>{{ product.quantity }}</td>
+            <td> {{ product.quantity }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.price | currency: "BRL" }}</td>
             <td>
